@@ -44,45 +44,29 @@ export const HeaderComponent = () => {
     const menuItems = [
         {
             key: '1',
-            type: 'group',
-            label: 'Group title',
+            label: 'Пункт 1',
             children: [
                 {
                     key: '1-1',
-                    label: '1st menu item',
+                    label: 'Подпункт 1-1',
                 },
                 {
                     key: '1-2',
-                    label: '2nd menu item',
+                    label: 'Подпункт 1-2',
                 },
             ],
         },
         {
             key: '2',
-            label: 'sub menu',
+            label: 'Пункт 2',
             children: [
                 {
                     key: '2-1',
-                    label: '3rd menu item',
+                    label: 'Подпункт 2-1',
                 },
                 {
                     key: '2-2',
-                    label: '4th menu item',
-                },
-            ],
-        },
-        {
-            key: '3',
-            label: 'disabled sub menu',
-            disabled: true,
-            children: [
-                {
-                    key: '3-1',
-                    label: '5d menu item',
-                },
-                {
-                    key: '3-2',
-                    label: '6th menu item',
+                    label: 'Подпункт 2-2',
                 },
             ],
         },
