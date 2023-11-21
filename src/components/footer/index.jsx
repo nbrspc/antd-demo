@@ -2,7 +2,7 @@ import {Layout} from "antd";
 
 const {Footer} = Layout;
 
-export const FooterComponent = () => {
+const FooterComponent = () => {
     return (
         <Footer
             style={{
@@ -15,3 +15,5 @@ export const FooterComponent = () => {
         </Footer>
     );
 };
+
+export default FooterComponent;

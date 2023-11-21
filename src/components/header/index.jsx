@@ -1,13 +1,12 @@
 import {
     Avatar,
     Breadcrumb,
-    Button,
+    Button, Drawer,
     Dropdown,
     Flex,
     Form,
     Input,
     Layout,
-    Modal,
     Space,
 } from "antd";
 import {
@@ -23,9 +22,10 @@ import React, {useState} from "react";
 
 const {Header} = Layout;
 
-export const HeaderComponent = () => {
+const HeaderComponent = () => {
 
     const [open, setOpen] = useState(false);
+    const [currentPassword, setCurrentPassword] = useState('12345678');
     const [form] = Form.useForm();
 
     const showModal = () => {
@@ -33,11 +33,18 @@ export const HeaderComponent = () => {
     };
 
     const onFinish = (values) => {
-        console.log(values);
+
+        // validate old password (from API in future)
+        if (values.oldPassword === currentPassword) {
+            setCurrentPassword(values.newPassword);
+            console.log(values);
+            handleCancel();
+        } else {
+            alert('Wrong password')
+        }
     };
 
     const handleCancel = () => {
-        console.log('Clicked cancel button');
         setOpen(false);
     };
 
@@ -142,14 +149,16 @@ export const HeaderComponent = () => {
 
             </Header>
 
-            <Modal
-                title={<center><h2>Изменить пароль</h2></center>}
+            <Drawer
+                title={
+                    <>
+                        <center><h2>Изменить пароль</h2></center>
+                        <i style={{color:"#bbb"}}>Текущий {currentPassword}</i>
+                    </>
+                }
                 open={open}
-                width={500}
                 onCancel={handleCancel}
-                footer={()=>{
-                    return <></>
-                }}
+                closeIcon={false}
             >
                 <Form
                     form={form}
@@ -176,7 +185,15 @@ export const HeaderComponent = () => {
                             ({ getFieldValue }) => ({
                                 validator(_, value) {
 
-                                    if (!value && getFieldValue('oldPassword') === value) {
+                                    if (!value) {
+                                        return Promise.reject(new Error('Новый пароль не должен быть пустым'))
+                                    }
+
+                                    if (getFieldValue('oldPassword') === value) {
+                                        return Promise.reject(new Error('Новый пароль должен отличаться от старого'))
+                                    }
+
+                                    if (currentPassword === value) {
                                         return Promise.reject(new Error('Новый пароль должен отличаться от старого'))
                                     }
 
@@ -221,7 +238,9 @@ export const HeaderComponent = () => {
                         </Flex>
                     </Form.Item>
                 </Form>
-            </Modal>
+            </Drawer>
         </>
     );
 };
+
+export default HeaderComponent;
