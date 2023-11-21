@@ -145,6 +145,7 @@ const BodyComponent = () => {
     const resetFilter = () => {
         setFilter(null);
         selector = 'all';
+        searchText = '';
     };
 
     return (
@@ -185,6 +186,7 @@ const BodyComponent = () => {
                         placeholder="Фильтр"
                         prefix={<SearchOutlined />}
                         // onSearch={search}
+                        value={searchText}
                         onChange={search}
                         allowClear
                     />
